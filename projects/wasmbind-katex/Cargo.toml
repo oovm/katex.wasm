@@ -1,0 +1,25 @@
+[package]
+name = "katex-wasmbind"
+version = "0.7.0"
+authors = ["Aster <galaster@foxmail.com>"]
+description = "KaTeX Render for wasm bind"
+edition = "2018"
+license = "MPL-2.0"
+readme = "Readme.md"
+repository = "https://github.com/GalAster/katex-wasmbind"
+include = ["/src/**/*"]
+# exclude = ["/tests/*", "/.idea/*", "/benches/*"]
+
+[dependencies]
+serde = "1.0"
+serde_derive = "1.0"
+
+[dependencies.wasm-bindgen]
+version = "0.2"
+features = ["serde-serialize"]
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3.0"
+
+[lib]
+crate-type = ["cdylib", "rlib"]

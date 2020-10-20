@@ -27,7 +27,10 @@ impl Component for Model {
     type Properties = ();
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link, input: String::from(r#"\int_{\partial M}^{}\omega＝\int_{M}^{}\mathrm{d}\,\omega"#) }
+        Self {
+            link,
+            input: String::from(r#"\int_{\partial M}^{}\omega＝\int_{M}^{}\mathrm{d}\,\omega"#),
+        }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {

@@ -18,21 +18,13 @@ jobs:
           target: wasm32-unknown-unknown
           override: true
           profile: minimal
-      - uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.toml') }}
-          restore-keys: |
-            cargo-${{ runner.os }}-
       - name: Install trunk 🗝
         run: |
           brew install trunk
           cargo install wasm-bindgen-cli
       - name: Build website 💣
         run: |
+          cd projects/yew-katex
           wasm-bindgen -V
           trunk -V
           trunk build --release
@@ -41,5 +33,5 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: dist
+          FOLDER: projects/yew-katex/dist
           CLEAN: true
