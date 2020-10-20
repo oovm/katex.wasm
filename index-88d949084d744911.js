@@ -1,4 +1,4 @@
-import { renderToString } from './snippets/katex-wasmbind-ae52ab1ffc4c13ec/src/katex.min.js';
+import { renderToString } from './snippets/katex-wasmbind-67dab3ba85a84b12/src/katex.min.js';
 
 let wasm;
 
@@ -293,7 +293,7 @@ async function init(input) {
         var ret = false;
         return ret;
     };
-    imports.wbg.__wbg_renderToString_6675430eeb54c265 = function(arg0, arg1, arg2, arg3) {
+    imports.wbg.__wbg_renderToString_e8d0aa0de669a3e5 = function(arg0, arg1, arg2, arg3) {
         var ret = renderToString(getStringFromWasm0(arg1, arg2), getObject(arg3));
         var ptr0 = passStringToWasm0(ret, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         var len0 = WASM_VECTOR_LEN;
@@ -421,10 +421,6 @@ async function init(input) {
     imports.wbg.__wbg_setAttribute_727bdb9763037624 = handleError(function(arg0, arg1, arg2, arg3, arg4) {
         getObject(arg0).setAttribute(getStringFromWasm0(arg1, arg2), getStringFromWasm0(arg3, arg4));
     });
-    imports.wbg.__wbg_firstChild_da572db3c494324b = function(arg0) {
-        var ret = getObject(arg0).firstChild;
-        return isLikeNone(ret) ? 0 : addHeapObject(ret);
-    };
     imports.wbg.__wbg_lastChild_4a41600911ce94c7 = function(arg0) {
         var ret = getObject(arg0).lastChild;
         return isLikeNone(ret) ? 0 : addHeapObject(ret);
@@ -497,8 +493,8 @@ async function init(input) {
     imports.wbg.__wbindgen_throw = function(arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));
     };
-    imports.wbg.__wbindgen_closure_wrapper277 = function(arg0, arg1, arg2) {
-        var ret = makeMutClosure(arg0, arg1, 79, __wbg_adapter_18);
+    imports.wbg.__wbindgen_closure_wrapper281 = function(arg0, arg1, arg2) {
+        var ret = makeMutClosure(arg0, arg1, 81, __wbg_adapter_18);
         return addHeapObject(ret);
     };
 
