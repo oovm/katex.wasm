@@ -4,7 +4,7 @@ use yew::{html, prelude::*, Component, ComponentLink, Html, ShouldRender};
 use yew_katex::KaTeX;
 
 pub fn header_view() -> Html {
-    let title = "Markups to Yew";
+    let title = "KaTeX for Yew";
     html! {
     <header>
         <h1 color="#009688">{title}</h1>
@@ -27,7 +27,7 @@ impl Component for Model {
     type Properties = ();
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link, input: String::new() }
+        Self { link, input: String::from(r#"\int_{\partial M}^{}\omega＝\int_{M}^{}\mathrm{d}\,\omega"#) }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -47,8 +47,8 @@ impl Component for Model {
                 {header_view()}
                 <main>
                 <textarea
-                     placeholder="输入待加解密内容"
-                     name="text"
+                     placeholder="Input LaTeX"
+                     value=&self.input
                      oninput=self.link.callback(|input: InputData| Event::Input(input.value))
                  />
                 <div><label>{"KaTeX Output:"}</label></div>

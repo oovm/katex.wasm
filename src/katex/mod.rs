@@ -1,11 +1,13 @@
-use katex_wasmbind::KaTeXOptions;
-use yew::{html, prelude::*, Component, ComponentLink, Html, ShouldRender};
+pub use katex_wasmbind::{KaTeXOptions, OutputType};
+use yew::{prelude::*, Component, ComponentLink, Html, ShouldRender};
 
 #[derive(Properties, Clone, PartialEq)]
 pub struct KaTeXProperties {
     pub math: String,
     #[prop_or(true)]
     pub inline: bool,
+    #[prop_or(OutputType::Html)]
+    pub output: OutputType,
 }
 
 pub struct KaTeX {
@@ -36,21 +38,15 @@ impl Component for KaTeX {
     }
 
     fn view(&self) -> Html {
-        match self.props.inline {
-            true => {
-                let render = KaTeXOptions::inline_mode();
-                let t = yew::utils::document().create_element("span").unwrap();
-                // t.set_class_name("katex-inline");
-                t.set_inner_html(&render.render(&self.props.math));
-                Html::VRef(t.into())
-            }
-            false => {
-                let render = KaTeXOptions::display_mode();
-                let t = yew::utils::document().create_element("span").unwrap();
-                // t.set_class_name("katex-display");
-                t.set_inner_html(&render.render(&self.props.math));
-                Html::VRef(t.first_child().unwrap().into())
-            }
+        let mut render = if self.props.inline {
+            KaTeXOptions::inline_mode()
         }
+        else {
+            KaTeXOptions::display_mode()
+        };
+        render.set_output_format(&self.props.output);
+        let t = yew::utils::document().create_element("span").unwrap();
+        t.set_inner_html(&render.render(&self.props.math));
+        Html::VRef(t.into())
     }
 }

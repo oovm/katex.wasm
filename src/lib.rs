@@ -1,3 +1,3 @@
 mod katex;
 
-pub use katex::KaTeX;
+pub use katex::{KaTeX, OutputType as KaTeXOutput};
