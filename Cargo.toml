@@ -1,0 +1,19 @@
+[package]
+name = "yew-katex"
+version = "0.1.0"
+authors = ["Aster <192607617@qq.com>"]
+description = "..."
+repository = "https://github.com/GalAster/yew-katex"
+readme = "Readme.md"
+license = "MPL-2.0"
+edition = "2018"
+
+[dependencies]
+yew = "0.17"
+katex-wasmbind = "0.6"
+
+[dev-dependencies]
+
+
+[features]
+default = []
