@@ -1,5 +1,6 @@
 [package]
-name = "yew-katex"
+name = "yew-katex-preview"
+publish = false
 version = "0.1.0"
 authors = ["Aster <192607617@qq.com>"]
 description = "Render math with KaTeX in Yew!"
@@ -10,7 +11,7 @@ edition = "2018"
 
 [dependencies]
 yew = "0.17"
-katex-wasmbind = {version = "0.7", path = "../wasmbind-katex"}
+yew-katex = {version = "0.1", path = "../yew-katex"}
 
 [dev-dependencies]
 

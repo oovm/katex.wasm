@@ -24,7 +24,7 @@ jobs:
           cargo install wasm-bindgen-cli
       - name: Build website 💣
         run: |
-          cd projects/yew-katex
+          cd projects/yew-katex-preview
           wasm-bindgen -V
           trunk -V
           trunk build --release
@@ -33,5 +33,5 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: projects/yew-katex/dist
+          FOLDER: projects/yew-katex-preview/dist
           CLEAN: true
