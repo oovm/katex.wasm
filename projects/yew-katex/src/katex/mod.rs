@@ -1,13 +1,17 @@
-pub use katex_wasmbind::{KaTeXOptions, OutputType};
+pub use katex_wasmbind::{KaTeXOptions};
 use yew::{prelude::*, Component, ComponentLink, Html, ShouldRender};
+use yew::services::StorageService;
+use yew::services::storage::Area;
+use yew::format::Json;
+use yew::utils::document;
 
 #[derive(Properties, Clone, PartialEq)]
 pub struct KaTeXProperties {
     pub math: String,
     #[prop_or(true)]
     pub inline: bool,
-    #[prop_or(OutputType::Html)]
-    pub output: OutputType,
+    #[prop_or(String::from("html"))]
+    pub output: String,
 }
 
 pub struct KaTeX {
@@ -38,15 +42,59 @@ impl Component for KaTeX {
     }
 
     fn view(&self) -> Html {
+        let renderer = self.create_renderer();
+        let t = yew::utils::document().create_element("div").unwrap();
+        t.set_inner_html(&renderer.render(&self.props.math));
+        Html::VRef(t.first_child().unwrap().into())
+    }
+
+    fn rendered(&mut self, first_render: bool) {
+        if first_render {
+            if let Ok(o) = self.load_cdn() {
+                o
+            }
+        }
+
+    }
+}
+
+impl KaTeX {
+    pub fn create_renderer(&self) -> KaTeXOptions {
         let mut render = if self.props.inline {
             KaTeXOptions::inline_mode()
-        }
-        else {
+        } else {
             KaTeXOptions::display_mode()
         };
         render.set_output_format(&self.props.output);
-        let t = yew::utils::document().create_element("span").unwrap();
-        t.set_inner_html(&render.render(&self.props.math));
-        Html::VRef(t.into())
+        return render;
+    }
+    pub fn load_cdn(&self)-> Result<(), std::io::Error> {
+        let mut storage = StorageService::new(Area::Session).expect("");
+        let loaded = match storage.restore("CDN: KaTeX") {
+             Json(Ok(restored)) => { restored },
+             _ => false
+         };
+        if loaded {
+            return Ok(())
+        }
+        else {
+            storage.store("CDN: KaTeX", Json(&true));
+        }
+
+        match document().get_element_by_id("cdn-katex") {
+            Some(_) => (),
+            None => {
+                let head = document().query_selector("head").expect("").expect("");
+                // <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+                let t = document().create_element("link").expect("");
+                t.set_attribute("id", "cdn-katex").expect("");
+                t.set_attribute("rel", "stylesheet").expect("");
+                t.set_attribute("href", "https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css").expect("");
+                head.append_child(&t).expect("");
+
+            }
+        }
+        Ok(())
+
     }
 }

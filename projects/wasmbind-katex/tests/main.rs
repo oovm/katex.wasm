@@ -1,10 +1,9 @@
 use katex_wasmbind::KaTeXOptions;
-use wasm_bindgen::JsValue;
 use wasm_bindgen_test::*;
 
 #[test]
-fn print() {
-    println!("{:?}", JsValue::from_serde(&KaTeXOptions::default()).unwrap())
+fn ready() {
+    println!("it works!")
 }
 
 #[wasm_bindgen_test]

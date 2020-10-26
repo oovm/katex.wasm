@@ -1,7 +1,7 @@
 [package]
 name = "yew-katex-preview"
 publish = false
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Aster <192607617@qq.com>"]
 description = "Render math with KaTeX in Yew!"
 repository = "https://github.com/GalAster/yew-katex"
@@ -11,10 +11,12 @@ edition = "2018"
 
 [dependencies]
 yew = "0.17"
-yew-katex = {version = "0.1", path = "../yew-katex"}
+yew-katex = {version = "0.2", path = "../yew-katex"}
+
 
 [dev-dependencies]
 
 
 [features]
-default = []
+default = ["auto-cdn"]
+auto-cdn = []
