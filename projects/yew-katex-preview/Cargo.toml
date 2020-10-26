@@ -12,11 +12,3 @@ edition = "2018"
 [dependencies]
 yew = "0.17"
 yew-katex = {version = "0.2", path = "../yew-katex"}
-
-
-[dev-dependencies]
-
-
-[features]
-default = ["auto-cdn"]
-auto-cdn = []

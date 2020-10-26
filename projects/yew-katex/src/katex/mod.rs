@@ -1,8 +1,5 @@
 pub use katex_wasmbind::{KaTeXOptions};
 use yew::{prelude::*, Component, ComponentLink, Html, ShouldRender};
-use yew::services::StorageService;
-use yew::services::storage::Area;
-use yew::format::Json;
 use yew::utils::document;
 
 #[derive(Properties, Clone, PartialEq)]
@@ -47,14 +44,11 @@ impl Component for KaTeX {
         t.set_inner_html(&renderer.render(&self.props.math));
         Html::VRef(t.first_child().unwrap().into())
     }
-
+    #[cfg(feature = "auto-cdn")]
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-            if let Ok(o) = self.load_cdn() {
-                o
-            }
+            self.load_cdn().unwrap_or_default()
         }
-
     }
 }
 
@@ -68,33 +62,19 @@ impl KaTeX {
         render.set_output_format(&self.props.output);
         return render;
     }
-    pub fn load_cdn(&self)-> Result<(), std::io::Error> {
-        let mut storage = StorageService::new(Area::Session).expect("");
-        let loaded = match storage.restore("CDN: KaTeX") {
-             Json(Ok(restored)) => { restored },
-             _ => false
-         };
-        if loaded {
-            return Ok(())
-        }
-        else {
-            storage.store("CDN: KaTeX", Json(&true));
-        }
-
-        match document().get_element_by_id("cdn-katex") {
-            Some(_) => (),
-            None => {
-                let head = document().query_selector("head").expect("").expect("");
-                // <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-                let t = document().create_element("link").expect("");
-                t.set_attribute("id", "cdn-katex").expect("");
-                t.set_attribute("rel", "stylesheet").expect("");
-                t.set_attribute("href", "https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css").expect("");
-                head.append_child(&t).expect("");
-
-            }
+    pub fn load_cdn(&self) -> Result<(), std::io::Error> {
+        // <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+        if let None = document().get_element_by_id("cdn-katex") {
+            let head = document().query_selector("head").expect("").expect("");
+            let t = document().create_element("link").expect("");
+            // async css load
+            t.set_attribute("id", "cdn-katex").expect("");
+            t.set_attribute("media", "none").expect("");
+            t.set_attribute("onload", "this.media='all'").expect("");
+            t.set_attribute("rel", "stylesheet").expect("");
+            t.set_attribute("href", "https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css").expect("");
+            head.append_child(&t).expect("");
         }
         Ok(())
-
     }
 }
