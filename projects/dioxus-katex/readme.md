@@ -1,9 +1,7 @@
-KaTeX for Rust
-==============
+KaTeX for Dioxus
+================
 
-Render math with KaTeX in Web!
-
-- The online preview: https://galaster.github.io/yew-katex
+Render math with KaTeX in Dioxus!
 
 ## How to use
 
