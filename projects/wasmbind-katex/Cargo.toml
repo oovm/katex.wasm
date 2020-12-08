@@ -1,6 +1,6 @@
 [package]
 name = "katex-wasmbind"
-version = "0.9.2"
+version = "0.9.3"
 authors = ["Aster <galaster@foxmail.com>"]
 description = "KaTeX Render for wasm bind"
 repository = "https://github.com/oovm/katex-wasm"
@@ -23,3 +23,7 @@ wasm-bindgen-test = "0.3.29"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
+
+[package.metadata.wee]
+t = "cargo test"
+p = "cargo publish --allow-dirty"
