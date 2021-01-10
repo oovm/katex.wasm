@@ -1,6 +1,6 @@
 [package]
 name = "dioxus-katex"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Aster <192607617@qq.com>"]
 description = "Render math with KaTeX in Yew!"
 repository = "https://github.com/GalAster/yew-katex"
@@ -9,7 +9,7 @@ license = "MPL-2.0"
 edition = "2018"
 
 [dependencies]
-dioxus = "0.1.8"
+dioxus = "0.2.3"
 katex-wasmbind = {version = "0.9.3", path = "../wasmbind-katex"}
 
 [dev-dependencies]
