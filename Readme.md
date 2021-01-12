@@ -3,7 +3,7 @@ KaTeX for Rust
 
 Render math with KaTeX in Web!
 
-- The online preview: https://galaster.github.io/katex-wasm
+- The online preview: https://oovm.github.io/katex-wasm
 
 ## How to use
 
