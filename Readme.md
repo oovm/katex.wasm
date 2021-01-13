@@ -12,5 +12,5 @@ Render math with KaTeX in Web!
 If you want to manage CDN by yourself, you can disable this feature and manually import it
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css">
+<link rel="stylesheet" href="https://unpkg.com/katex@0.15.2/dist/katex.min.css">
 ```

@@ -1,14 +1,12 @@
 [package]
 name = "katex-wasmbind"
-version = "0.9.4"
+version = "0.10.0"
 authors = ["Aster <galaster@foxmail.com>"]
 description = "KaTeX Render for wasm bind"
 repository = "https://github.com/oovm/katex-wasm"
 license = "MPL-2.0"
 readme = "Readme.md"
 edition = "2021"
-include = ["/src/**/*"]
-# exclude = ["/tests/*", "/.idea/*", "/benches/*"]
 
 [dependencies]
 serde = "1.0.137"

@@ -4,7 +4,7 @@ use dioxus_katex::{use_katex_display, UseKatex};
 
 pub fn Editor(cx: Scope) -> Element {
     let place_holder = r#"K_{0}-K_{1}=\frac{E}{c^2}\frac{v^2}{2}"#;
-    let (text, text_set) = use_state(&cx, || place_holder.to_string());
+    let text = use_state(&cx, || place_holder.to_string());
     let katex = use_katex_display(&cx);
     let is_display = DisplayToggle(katex);
     let math = katex.compile(text);
@@ -17,7 +17,7 @@ pub fn Editor(cx: Scope) -> Element {
                     class: "textarea h-96 textarea-bordered textarea-primary",
                     id: "editor",
                     placeholder: "{place_holder}",
-                    oninput: move |e| text_set(e.value.to_owned()),
+                    oninput: move |e| text.set(e.value.to_owned()),
                     value: "{text}",
                 }
             }

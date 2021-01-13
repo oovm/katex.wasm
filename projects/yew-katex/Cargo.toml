@@ -10,7 +10,7 @@ edition = "2018"
 
 [dependencies]
 yew = "0.19.3"
-katex-wasmbind = {version = "0.9", path = "../wasmbind-katex"}
+katex-wasmbind = "0.9"
 anyhow = "1.0.57"
 
 [dev-dependencies]
