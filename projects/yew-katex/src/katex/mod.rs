@@ -25,7 +25,7 @@ impl Component for KaTeX {
         let renderer = self.create_renderer(ctx.props());
         let t = document().create_element("div").unwrap();
         t.set_inner_html(&renderer.render(ctx.props().math.as_str()));
-        Html::VRef(t.first_child().unwrap().into())
+        Html::VRef(t.first_child().unwrap())
     }
 
     #[cfg(feature = "auto-cdn")]
@@ -45,7 +45,7 @@ impl KaTeX {
 
     pub fn load_cdn(&self) -> Result<(), std::io::Error> {
         // <link rel="stylesheet" href="https://unpkg.com/katex@0.12.0/dist/katex.min.css">
-        if let None = document().get_element_by_id("cdn-katex") {
+        if document().get_element_by_id("cdn-katex").is_none() {
             let head = document().query_selector("head").expect("").expect("");
             let t = document().create_element("link").expect("");
             // async css load
