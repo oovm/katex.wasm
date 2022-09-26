@@ -12,7 +12,6 @@ edition = "2018"
 yew = "0.19.3"
 gloo-utils = "0.1.5"
 katex-wasmbind = "0.9"
-anyhow = "1.0.57"
 
 [dev-dependencies]
 
