@@ -1,6 +1,6 @@
-pub use katex_wasmbind::{KaTeXOptions};
-use yew::{prelude::*, Component, ComponentLink, Html, ShouldRender};
-use yew::utils::document;
+use gloo_utils::document;
+pub use katex_wasmbind::KaTeXOptions;
+use yew::{prelude::*, Component, Html};
 
 #[derive(Properties, Clone, PartialEq)]
 pub struct KaTeXProperties {
@@ -11,41 +11,25 @@ pub struct KaTeXProperties {
     pub output: String,
 }
 
-pub struct KaTeX {
-    pub math_rendered: Html,
-    pub props: KaTeXProperties,
-}
+pub struct KaTeX;
 
 impl Component for KaTeX {
     type Message = ();
     type Properties = KaTeXProperties;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Self { math_rendered: Default::default(), props }
+    fn create(_ctx: &yew::Context<Self>) -> Self {
+        Self
     }
 
-    fn update(&mut self, _: Self::Message) -> ShouldRender {
-        false
+    fn view(&self, ctx: &yew::Context<Self>) -> Html {
+        let renderer = self.create_renderer(ctx.props());
+        let t = document().create_element("div").unwrap();
+        t.set_inner_html(&renderer.render(ctx.props().math.as_str()));
+        Html::VRef(t.first_child().unwrap())
     }
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        match self.props == props {
-            true => false,
-            false => {
-                self.props = props;
-                true
-            }
-        }
-    }
-
-    fn view(&self) -> Html {
-        let renderer = self.create_renderer();
-        let t = yew::utils::document().create_element("div").unwrap();
-        t.set_inner_html(&renderer.render(&self.props.math));
-        Html::VRef(t.first_child().unwrap().into())
-    }
     #[cfg(feature = "auto-cdn")]
-    fn rendered(&mut self, first_render: bool) {
+    fn rendered(&mut self, _ctx: &yew::Context<Self>, first_render: bool) {
         if first_render {
             self.load_cdn().unwrap_or_default()
         }
@@ -53,18 +37,15 @@ impl Component for KaTeX {
 }
 
 impl KaTeX {
-    pub fn create_renderer(&self) -> KaTeXOptions {
-        let mut render = if self.props.inline {
-            KaTeXOptions::inline_mode()
-        } else {
-            KaTeXOptions::display_mode()
-        };
-        render.set_output_format(&self.props.output);
-        return render;
+    pub fn create_renderer(&self, props: &KaTeXProperties) -> KaTeXOptions {
+        let mut render = if props.inline { KaTeXOptions::inline_mode() } else { KaTeXOptions::display_mode() };
+        render.set_output_format(props.output.as_str());
+        render
     }
+
     pub fn load_cdn(&self) -> Result<(), std::io::Error> {
         // <link rel="stylesheet" href="https://unpkg.com/katex@0.12.0/dist/katex.min.css">
-        if let None = document().get_element_by_id("cdn-katex") {
+        if document().get_element_by_id("cdn-katex").is_none() {
             let head = document().query_selector("head").expect("").expect("");
             let t = document().create_element("link").expect("");
             // async css load

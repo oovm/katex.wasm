@@ -1,9 +1,11 @@
 name: Publish Examples
 on:
   push:
-    branches: [ master ]
+    branches: [ master, dev ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, dev ]
+permissions:
+    contents: write
 
 jobs:
   publish:
@@ -27,9 +29,9 @@ jobs:
           trunk -V
           trunk build --release
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: projects/katex-preview/dist
           CLEAN: true
