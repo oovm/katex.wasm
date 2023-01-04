@@ -1,6 +1,6 @@
 [package]
 name = "dioxus-katex"
-version = "0.2.2"
+version = "0.3.2"
 authors = ["Aster <192607617@qq.com>"]
 description = "Render math with KaTeX in Dioxus!"
 repository = "https://github.com/oovm/katex-wasm"
@@ -10,7 +10,7 @@ license = "MPL-2.0"
 edition = "2018"
 
 [dependencies]
-dioxus = "0.2.4"
+dioxus = "0.3.2"
 katex-wasmbind = { version = "0.10.0" }
 
 [dev-dependencies]

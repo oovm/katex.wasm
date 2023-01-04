@@ -2,11 +2,11 @@ use std::{
     cell::{Ref, RefCell, RefMut},
     fmt::{Debug, Formatter},
     rc::Rc,
+    sync::Arc,
 };
-use std::sync::Arc;
 
 use dioxus::prelude::*;
-use dioxus_elements::{div, GlobalAttributes};
+use dioxus_elements::GlobalAttributes;
 
 use katex_wasmbind::KaTeXOptions;
 
@@ -50,14 +50,10 @@ impl UseKatex {
     pub fn compile(&self, input: &str) -> LazyNodes {
         let config = self.katex.borrow_mut();
         let out = config.render(input);
-        LazyNodes::new(move |cx: NodeFactory| -> VNode {
-            cx.element(
-                div,
-                &[],
-                cx.bump().alloc([div.dangerous_inner_html(cx, format_args!("{out}", out = out))]),
-                &[],
-                None,
-            )
-        })
+        rsx! {
+            div {
+                dangerous_inner_html: "{out}"
+            }
+        }
     }
 }

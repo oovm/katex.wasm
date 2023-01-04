@@ -10,7 +10,7 @@ pub use self::components::*;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
-    dioxus::web::launch(AppWeb)
+    dioxus_web::launch(AppWeb)
 }
 
 // pub fn main_ssr() {

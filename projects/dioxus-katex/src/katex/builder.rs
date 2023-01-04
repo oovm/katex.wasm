@@ -3,7 +3,7 @@ use super::*;
 /// A builder for a [`UseKatex`] hook.
 pub fn use_katex(cx: &ScopeState, katex: KaTeXOptions) -> &mut UseKatex {
     let katex = UseKatex { katex: Rc::new(RefCell::new(katex)), updater: cx.schedule_update() };
-    cx.use_hook(|_| katex)
+    cx.use_hook(|| katex)
 }
 /// A builder for a [`UseKatex`] hook in display mode.
 pub fn use_katex_display(cx: &ScopeState) -> &mut UseKatex {
