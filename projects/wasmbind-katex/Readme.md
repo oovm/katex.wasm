@@ -1,11 +1,11 @@
-# KaTeX WASM (KaTeX 0.16.0)
+# KaTeX WASM (KaTeX 0.16.8)
 
 ## Basic
 
 Notice that this does not include css, so cdn still must be included.
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/katex@0.12.0/dist/katex.min.css">
+<link rel="stylesheet" href="https://unpkg.com/katex@0.16.8/dist/katex.min.css">
 ```
 
 

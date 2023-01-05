@@ -1,6 +1,6 @@
 [package]
 name = "dioxus-katex"
-version = "0.3.2"
+version = "0.4.0"
 authors = ["Aster <192607617@qq.com>"]
 description = "Render math with KaTeX in Dioxus!"
 repository = "https://github.com/oovm/katex-wasm"
