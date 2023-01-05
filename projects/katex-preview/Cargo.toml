@@ -10,10 +10,10 @@ license = "MPL-2.0"
 edition = "2018"
 
 [dependencies]
-log = "0.4.17"
+log = "0.4.20"
 wasm-logger = "0.2.0"
-dioxus = "0.3.2"
-dioxus-web = "0.3.2"
+dioxus = "0.4.0"
+dioxus-web = "0.4.0"
 dioxus-katex = { version = "*", path = "../dioxus-katex" }
 
 [dev-dependencies]
