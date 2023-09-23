@@ -20,7 +20,7 @@ jobs:
           target: wasm32-unknown-unknown
           override: true
           profile: minimal
-      - uses: jetli/wasm-bindgen-action@v0.1.0
+      - uses: jetli/wasm-bindgen-action@v0.2.0
       - uses: jetli/trunk-action@v0.1.0
       - name: Build website 💣
         run: |
