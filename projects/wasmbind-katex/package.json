@@ -10,6 +10,6 @@
         "katex": "^0.16.8"
     },
     "devDependencies": {
-        "esbuild": "^0.19.2"
+        "esbuild": "^0.20.0"
     }
 }
